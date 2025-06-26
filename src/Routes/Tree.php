@@ -15,7 +15,16 @@ class Tree implements IRoute
         Route::add('/security/tree', function ($matches) {
             TualoApplication::contenttype('application/json');
             try {
-                TualoApplication::result('routes', Route::getRoutes());
+                $rx = [];
+                $routes = Route::getRoutes();
+                foreach ($routes as $route) {
+                    if (isset($route['needActiveSession']) && ($route['needActiveSession'] === false)) {
+                        $rx[] = $route;
+                    }
+                }
+
+
+                TualoApplication::result('routes', $rx);
             } catch (\Exception $e) {
                 TualoApplication::result('msg', $e->getMessage());
             }
