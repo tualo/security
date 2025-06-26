@@ -1,0 +1,24 @@
+{
+    "name": "tualo/securtiy",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Thomas Hoffmann",
+            "email": "thomas.hoffmann@tualo.de"
+        }
+    ],
+    "require": {
+        "guzzlehttp/guzzle": "*",
+        "ramsey/uuid": "*"
+    },
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "Tualo\\Office\\Security\\": "src/"
+        },
+        "files": [
+            "src/functions.php"
+        ]
+    }
+}
