@@ -11,7 +11,7 @@ use GuzzleHttp\Client;
 class BaseSecurityCommand
 {
 
-    public static function checkURIAccess($file): bool
+    public static function checkURIAccess(string $file, string $method = 'get', array $options = []): bool
     {
         if (App::configuration('security', 'base_url', false) === false) {
             PostCheck::formatPrintLn(['red'], "base_url is not set configuration");
@@ -28,10 +28,17 @@ class BaseSecurityCommand
                             'timeout'  => 1.0,
                         ]
                     );
-                    $response = $client->get($backendPath . '/composer.json', []);
+                    if ($method == 'post') {
+                        $response = $client->post($backendPath . $file, $options);
+                    } else if ($method == 'get') {
+                        $response = $client->get($backendPath . $file, $options);
+                    } else {
+                        throw new \Exception('Method not supported: ' . $method);
+                    }
                     $code = $response->getStatusCode(); // 200
 
                     if ($code == 200) {
+                        PostCheck::formatPrintLn(['blue'], $file . ':' . $response->getReasonPhrase() . ' (' . $code . '): ' . $response->getBody()->getContents());
                         return true;
                     } else {
                         return false;
