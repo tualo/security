@@ -1,6 +1,6 @@
 <?php
 
-namespace Tualo\Office\BSC\Checks;
+namespace Tualo\Office\Security\Checks;
 
 use Tualo\Office\Basic\Middleware\Session;
 use Tualo\Office\Basic\PostCheck;
