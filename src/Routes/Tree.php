@@ -34,6 +34,6 @@ class Tree extends \Tualo\Office\Basic\RouteWrapper
             } catch (\Exception $e) {
                 TualoApplication::result('msg', $e->getMessage());
             }
-        }, ['get'], true);
+        }, ['get'], true, [], self::scope());
     }
 }
