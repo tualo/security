@@ -19,17 +19,20 @@ class Tree extends \Tualo\Office\Basic\RouteWrapper
     public static function register()
     {
         Route::add('/security/tree', function ($matches) {
+
+
             TualoApplication::contenttype('application/json');
             try {
                 $rx = [];
                 $routes = Route::getRoutes();
                 foreach ($routes as $route) {
-                    if (isset($route['needActiveSession']) && ($route['needActiveSession'] === false)) {
+                    // if (isset($route['needActiveSession']) && ($route['needActiveSession'] === false)) {
+                    if (strpos($route['expression'], '(?P') === false) {
                         $rx[] = $route;
                     }
+                    // }
                 }
-
-
+                TualoApplication::result('success', true);
                 TualoApplication::result('routes', $rx);
             } catch (\Exception $e) {
                 TualoApplication::result('msg', $e->getMessage());
